@@ -3,6 +3,7 @@ MVP:
 sequelize model:generate --name=user --attributes name:string,email:string,password:string
 sequelize model:generate --name=article --attributes title:string,url:string,image:string,userId:integer
 sequelize model:generate --name=country --attributes name:string,code:string,userId:integer
+sequelize model:generate --name=user_article --attributes userId:integer,articleId:integer
 
 sequelize seed:generate --name=country-seed
 

@@ -49,6 +49,7 @@ module.exports = {
       { name: 'Norway', code: 'no'},
       { name: 'Philippines', code: 'ph'},
       { name: 'Poland', code: 'pl'},
+      { name: 'Portugal', code: 'pt'},
       { name: 'Romania', code: 'ro'},
       { name: 'Russia', code: 'ru'},
       { name: 'Saudi Arabia', code: 'sa'},
@@ -68,7 +69,6 @@ module.exports = {
       { name: 'United Kingdom', code: 'gb'},
       { name: 'United States', code: 'us'},
       { name: 'Venuzuela', code: 've'}
-
     ])
   },
 
