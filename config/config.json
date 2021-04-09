@@ -1,0 +1,17 @@
+{
+  "development": {
+    "database": "zeitgeist_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "database": "zeitgeist_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "database": "zeitgeist_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
