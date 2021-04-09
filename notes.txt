@@ -4,6 +4,8 @@ sequelize model:generate --name=user --attributes name:string,email:string,passw
 sequelize model:generate --name=article --attributes title:string,url:string,image:string,userId:integer
 sequelize model:generate --name=country --attributes name:string,code:string,userId:integer
 
+sequelize seed:generate --name=country-seed
+
 STRETCH:
 
 sequelize model:generate --name=language --attributes name:string,code:string,userId:integer
