@@ -68,7 +68,7 @@ testing() */
 
 addGlobal() */
 
-const removeGlobal = async () => {
+/* const removeGlobal = async () => {
     const global = await models.country.findOne({
         where: {
             code: 'zz'
@@ -78,4 +78,4 @@ const removeGlobal = async () => {
     const deleted = await global.destroy()
 }
 
-removeGlobal()
+removeGlobal() */
