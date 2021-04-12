@@ -69,7 +69,19 @@ usersControllers.signIn = async (req, res) => {
 }
 
 usersControllers.getBookmarks = async (req, res) => {
-    
+    try {
+        const user = await models.user.findOne({
+            where: {
+                id: req.headers.authorization
+            }
+        })
+        const response = await user.getArticles()
+
+        res.json({response})
+    } catch (error) {
+        res.status(400)
+        res.json({ error: 'Bookmarks failed' })
+    }
 }
 
 module.exports = usersControllers

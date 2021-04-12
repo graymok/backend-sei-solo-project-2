@@ -70,5 +70,30 @@ newsControllers.saveArticle = async (req, res) => {
     }
 }
 
+newsControllers.removeArticle = async (req, res) => {
+    try {
+        const user = await models.user.findOne({
+            where: {
+                id: req.body.id
+            }
+        })
+
+        const article = await models.article.findOne({
+            where: {
+                title: req.body.title,
+                url: req.body.url,
+                image: req.body.image
+            }
+        })
+
+        const removeSaved = await user.removeArticle(article)
+
+        res.json(removeSaved)
+    } catch (error) {
+        res.status(400)
+        res.json({error})
+    }
+}
+
 
 module.exports = newsControllers
