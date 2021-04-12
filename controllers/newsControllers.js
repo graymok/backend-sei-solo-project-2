@@ -1,6 +1,5 @@
 const axios = require('axios')
 const models = require('../models')
-const apiKey = '&apiKey=2dd298450a7d4bbe98353587eb9c9ef4'
 const searchURL = 'https://newsapi.org/v2/everything?q='
 const headlinesURL = 'https://newsapi.org/v2/top-headlines?country='
 
@@ -20,7 +19,7 @@ newsControllers.topHeadlines = async (req, res) => {
         const code = country.code
         console.log(code)
 
-        const response = await axios.get(`${headlinesURL}${code}${apiKey}`)
+        const response = await axios.get(`${headlinesURL}${code}${process.env.APIKEY}`)
 
         res.send(response.data)
         
@@ -32,7 +31,17 @@ newsControllers.topHeadlines = async (req, res) => {
 }
 
 newsControllers.searchNews = async (req, res) => {
+    try {
+        const searchInput = req.body.search
 
+        const response = await axios.get(`${searchURL}${searchInput}${process.env.APIKEY}`)
+
+        res.send(response.data)
+
+    } catch (error) {
+        res.status(400)
+        res.json({error})
+    }
 }
 
 
