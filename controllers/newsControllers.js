@@ -44,5 +44,31 @@ newsControllers.searchNews = async (req, res) => {
     }
 }
 
+newsControllers.saveArticle = async (req, res) => {
+    try {
+        const user = await models.user.findOne({
+            where: {
+                id: req.body.id
+            }
+        })
+        console.log(user)
+
+        const article = await models.article.findOrCreate({
+            where: {
+                title: req.body.title,
+                url: req.body.url,
+                image: req.body.image
+            }
+        })
+        console.log(article[0])
+        const saved = await user.addArticle(article[0])
+        console.log(saved)
+
+    } catch (error) {
+        res.status(400)
+        res.json({error})
+    }
+}
+
 
 module.exports = newsControllers

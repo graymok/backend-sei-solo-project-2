@@ -68,6 +68,8 @@ usersControllers.signIn = async (req, res) => {
     }
 }
 
-
+usersControllers.getBookmarks = async (req, res) => {
+    
+}
 
 module.exports = usersControllers
