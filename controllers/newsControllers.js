@@ -1,4 +1,4 @@
-const { default: axios } = require('axios')
+const axios = require('axios')
 const models = require('../models')
 const apiKey = '&apiKey=2dd298450a7d4bbe98353587eb9c9ef4'
 const searchURL = 'https://newsapi.org/v2/everything?q='
@@ -7,27 +7,28 @@ const headlinesURL = 'https://newsapi.org/v2/top-headlines?country='
 
 const newsControllers = {}
 
-newsControllers.getHeadlines = async (req, res) => {
+newsControllers.topHeadlines = async (req, res) => {
     try {
         const user = await models.user.findOne({
             where: {
-                id: req.header.authorization
+                id: req.headers.authorization
             }
         })
-        const headlinesCode = user.countryId
-        const response = await axios.get(`${headlinesURL}${headlinesCode}${apiKey}`)
+        console.log(user)
+        const country = await user.getCountry()
+        console.log(country)
+        const code = country.code
+        console.log(code)
 
-        res.send(response.articles)
-        res.json({ message: 'Top headlines'})
+        const response = await axios.get(`${headlinesURL}${code}${apiKey}`)
+
+        res.send(response.data)
+        
 
     } catch (error) {
-        res.status(400)
+        res.status(404)
         res.json({error})
     }
-    
-    
-    
-
 }
 
 newsControllers.searchNews = async (req, res) => {
