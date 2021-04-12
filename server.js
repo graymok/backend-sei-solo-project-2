@@ -18,7 +18,7 @@ app.use('/news', newsRoutes)
 app.use('/users', usersRoutes)
 
 
-const PORT = process.env.port || 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`We're live on ${PORT}`)
   routesReport.print()
