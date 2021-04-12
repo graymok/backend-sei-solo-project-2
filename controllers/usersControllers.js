@@ -1,24 +1,26 @@
 const models = require('../models')
-
+const jwt = require('jsonwebtoken')
 
 const usersControllers = {}
 
 usersControllers.signUp = async (req, res) => {
     try {
-        const country = await models.country.findOne({
-            where: {
-                countryId: req.body.country
-            }
-        })
-        
         const user = await models.user.create({
             name: req.body.name,
             email: req.body.email,
             password: req.body.password
         })
 
+        //const encryptedId = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)
+
+        const country = await models.country.findOne({
+            where: {
+                code: req.body.country
+            }
+        })
+
         const countryChoice = await user.setCountry(country)
-        res.json({ message: 'User created' })
+        res.json({ message: 'User created', user })
     } catch (error) {
         res.status(400)
         res.json({ error })
@@ -35,10 +37,9 @@ usersControllers.signIn = async (req, res) => {
         })
 
         if ( user.password === req.body.password ) {
-            //const secureId = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)
-            //res.json({ message: 'Login successful', userId: secureId })
+            //const encryptedId = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)
 
-            res.json({ message: 'Login successful', user})
+            res.json({ message: 'Login successful', userId: encryptedId })
 
         } else {
             res.status(401)
