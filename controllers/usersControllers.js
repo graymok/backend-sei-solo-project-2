@@ -32,14 +32,14 @@ usersControllers.signIn = async (req, res) => {
     try {
         const user = await models.user.findOne({
             where: {
-                email: req.body.email,
+                email: req.body.email
             }
         })
 
         if ( user.password === req.body.password ) {
             //const encryptedId = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)
 
-            res.json({ message: 'Login successful', userId: encryptedId })
+            res.json({ message: 'Login successful', user })
 
         } else {
             res.status(401)
