@@ -57,3 +57,13 @@ const models = require('./models')
 }
 
 testing() */
+
+const addGlobal = async () => {
+    const global = await models.country.create({
+        name: 'Global',
+        code: 'zz'
+    })
+    console.log(global)
+}
+
+addGlobal()
