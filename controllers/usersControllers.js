@@ -5,9 +5,11 @@ const usersControllers = {}
 
 usersControllers.findUser = async (req, res) => {
     try {
+        const decryptedId = jwt.verify(req.headers.authorization, process.env.JWT_SECRET)
+
         const user = await models.user.findOne({
             where: {
-                id: req.headers.authorization
+                id: decryptedId.userId
             }
         })
         const country = await user.getCountry()
@@ -26,7 +28,7 @@ usersControllers.signUp = async (req, res) => {
             password: req.body.password
         })
 
-        //const encryptedId = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)
+        
 
         const country = await models.country.findOne({
             where: {
@@ -35,7 +37,10 @@ usersControllers.signUp = async (req, res) => {
         })
 
         const countryChoice = await user.setCountry(country)
-        res.json({ message: 'User created', user, country })
+        const encryptedId = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)
+
+        console.log(encryptedId)
+        res.json({ message: 'User created', userId: encryptedId, user, country })
     } catch (error) {
         res.status(400)
         res.json({ error })
@@ -51,11 +56,11 @@ usersControllers.signIn = async (req, res) => {
             }
         })
         const country = await user.getCountry()
+        const encryptedId = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)
 
         if ( user.password === req.body.password ) {
-            //const encryptedId = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)
-
-            res.json({ message: 'Login successful', user, country })
+            
+            res.json({ message: 'Login successful', userId: encryptedId, user, country })
 
         } else {
             res.status(401)
@@ -70,9 +75,12 @@ usersControllers.signIn = async (req, res) => {
 
 usersControllers.getBookmarks = async (req, res) => {
     try {
+
+        const decryptedId = jwt.verify(req.headers.authorization, process.env.JWT_SECRET)
+
         const user = await models.user.findOne({
             where: {
-                id: req.headers.authorization
+                id: decryptedId.userId
             }
         })
         const response = await user.getArticles()

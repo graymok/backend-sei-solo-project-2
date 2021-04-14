@@ -2,15 +2,17 @@ const axios = require('axios')
 const models = require('../models')
 const searchURL = 'https://newsapi.org/v2/everything?q='
 const headlinesURL = 'https://newsapi.org/v2/top-headlines?country='
-
+const jwt = require('jsonwebtoken')
 
 const newsControllers = {}
 
 newsControllers.topHeadlines = async (req, res) => {
     try {
+        const decryptedId = jwt.verify(req.headers.authorization, process.env.JWT_SECRET)
+
         const user = await models.user.findOne({
             where: {
-                id: req.headers.authorization
+                id: decryptedId.userId
             }
         })
         console.log(user)
@@ -46,9 +48,11 @@ newsControllers.searchNews = async (req, res) => {
 
 newsControllers.saveArticle = async (req, res) => {
     try {
+        const decryptedId = jwt.verify(req.body.id, process.env.JWT_SECRET)
+
         const user = await models.user.findOne({
             where: {
-                id: req.body.id
+                id: decryptedId.userId
             }
         })
         console.log(user)
@@ -72,9 +76,11 @@ newsControllers.saveArticle = async (req, res) => {
 
 newsControllers.removeArticle = async (req, res) => {
     try {
+        const decryptedId = jwt.verify(req.body.id, process.env.JWT_SECRET)
+
         const user = await models.user.findOne({
             where: {
-                id: req.body.id
+                id: decryptedId.userId
             }
         })
 
