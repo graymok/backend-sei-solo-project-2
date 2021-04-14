@@ -84,4 +84,6 @@ usersControllers.getBookmarks = async (req, res) => {
     }
 }
 
+
+
 module.exports = usersControllers

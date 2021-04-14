@@ -8,5 +8,4 @@ usersRoutes.post('/signin', usersControllers.signIn)
 usersRoutes.get('/bookmarks', usersControllers.getBookmarks)
 
 
-
 module.exports = usersRoutes
