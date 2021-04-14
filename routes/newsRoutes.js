@@ -8,6 +8,4 @@ newsRoutes.post('/bookmarks', newsControllers.saveArticle)
 newsRoutes.post('/bookmarks/remove', newsControllers.removeArticle)
 
 
-
-
 module.exports = newsRoutes
